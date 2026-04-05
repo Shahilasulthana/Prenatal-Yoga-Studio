@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Prenatal Yoga Login</title>
+    <style>
+        body { font-family: Arial; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+               display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .container { background: white; padding: 40px; border-radius: 20px; width: 400px; }
+        input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; }
+        button { width: 100%; padding: 12px; background: #667eea; color: white; border: none; 
+                 border-radius: 5px; cursor: pointer; font-size: 16px; }
+        h1 { color: #333; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧘 Prenatal Yoga</h1>
+        <form id="loginForm">
+            <input type="text" id="name" placeholder="Full Name" required>
+            <input type="number" id="age" placeholder="Age" required>
+            <input type="date" id="pregnancyDate" required>
+            <button type="submit">Start Journey</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById('loginForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const response = await fetch('/login', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    name: document.getElementById('name').value,
+                    age: document.getElementById('age').value,
+                    pregnancy_date: document.getElementById('pregnancyDate').value
+                })
+            });
+            const data = await response.json();
+            if (data.status === 'success') window.location.href = '/dashboard';
+        };
+    </script>
+</body>
+</html>

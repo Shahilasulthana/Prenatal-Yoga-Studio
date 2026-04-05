@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Practice Pose</title>
+    <style>
+        body { font-family: Arial; background: #1a1a2e; color: white; margin: 0; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 15px; }
+        .container { display: flex; height: calc(100vh - 60px); }
+        .camera { flex: 2; background: #0f0f1a; position: relative; }
+        .feedback { flex: 1; background: #16213e; padding: 20px; overflow-y: auto; }
+        video { width: 100%; height: 100%; object-fit: cover; }
+        canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+        button { background: #667eea; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-top: 20px; }
+        .accuracy { font-size: 48px; text-align: center; margin: 20px 0; }
+        .corrections { list-style: none; padding: 0; }
+        .corrections li { background: rgba(255,255,255,0.1); margin: 10px 0; padding: 10px; border-radius: 5px; }
+        .back-btn { background: rgba(255,255,255,0.2); margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <button class="back-btn" onclick="goBack()">← Back</button>
+        <h2>{{ pose_name.replace('_', ' ') }}</h2>
+    </div>
+    <div class="container">
+        <div class="camera">
+            <video id="video" autoplay playsinline></video>
+            <canvas id="canvas"></canvas>
+        </div>
+        <div class="feedback">
+            <div class="safety" style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                <strong>Safety:</strong> {{ safety.safety.replace('_', ' ') }}<br>
+                <small>{{ safety.message }}</small>
+            </div>
+            <div class="accuracy" id="accuracy">0%</div>
+            <h3>Corrections:</h3>
+            <ul class="corrections" id="corrections">
+                <li>Waiting for pose detection...</li>
+            </ul>
+            <button onclick="stopCamera()">Stop Practice</button>
+        </div>
+    </div>
+    <script>
+        let camera = null;
+        
+        async function initCamera() {
+            const video = document.getElementById('video');
+            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            video.srcObject = stream;
+            await video.play();
+        }
+        
+        function stopCamera() {
+            if (camera) camera.stop();
+            window.location.href = '/dashboard';
+        }
+        
+        function goBack() { stopCamera(); }
+        
+        initCamera();
+        
+        // Simulate pose detection (replace with actual MediaPipe later)
+        setInterval(() => {
+            const accuracy = Math.floor(Math.random() * 100);
+            document.getElementById('accuracy').innerHTML = accuracy + '%';
+            const correctionsList = document.getElementById('corrections');
+            correctionsList.innerHTML = '';
+            if (accuracy > 80) {
+                correctionsList.innerHTML = '<li>✓ Great pose! Keep it up!</li>';
+            } else if (accuracy > 50) {
+                correctionsList.innerHTML = '<li>⚠️ Slight adjustment needed</li><li>Straighten your back more</li>';
+            } else {
+                correctionsList.innerHTML = '<li>❌ Major adjustments needed</li><li>Bend your knees more</li><li>Keep your back straight</li>';
+            }
+        }, 2000);
+    </script>
+</body>
+</html>

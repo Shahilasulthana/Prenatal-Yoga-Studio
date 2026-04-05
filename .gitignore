@@ -1,0 +1,86 @@
+﻿# ================================
+# DATA & LARGE FILES (IMPORTANT)
+# ================================
+dataset/
+data/
+static_images/
+labelled_images/
+uploads/
+models/
+
+# Models & trained artifacts
+models/pose_models/
+models/best_models/
+models/scalers/
+
+# Large ML files
+*.pkl
+*.h5
+*.pb
+*.onnx
+*.bin
+*.task
+
+# ================================
+# PYTHON
+# ================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# ================================
+# VIRTUAL ENVIRONMENT
+# ================================
+yoga_env/
+venv/
+.venv/
+
+# ================================
+# IDE / EDITOR
+# ================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# ================================
+# JUPYTER
+# ================================
+.ipynb_checkpoints/
+*.ipynb
+
+# ================================
+# ENV FILES
+# ================================
+.env
+.envrc
+
+# ================================
+# LOGS & DATABASES
+# ================================
+*.log
+*.sqlite
+*.sql
+
+# ================================
+# TESTING / CACHE
+# ================================
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ================================
+# TYPE CHECKERS
+# ================================
+.mypy_cache/
+.dmypy.json
+.pyre/
+
+# NOTE:
+# This project uses large datasets (Yoga-82) and trained models.
+# These are excluded from GitHub to keep the repository lightweight.
+# Please download datasets separately or contact the author.

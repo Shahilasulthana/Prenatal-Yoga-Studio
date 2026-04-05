@@ -1,0 +1,13 @@
+# Core dependencies with compatible versions
+protobuf==3.20.3
+numpy==1.23.5
+opencv-python==4.8.1.78
+mediapipe==0.10.3
+
+# MediaPipe dependencies (without TensorFlow)
+absl-py==2.0.0
+attrs==23.1.0
+flatbuffers==23.5.26
+
+# Additional utilities
+python-dotenv==1.0.0
